@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+  <h1>Liste des Produits</h1>
+    {% if user is not empty %}
+    <table class="table" border="1">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Date D'inscription</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in user %}
+                <tr>
+                    <td> 
+                        <a href="{{ path('utilisateur', {'id': user.id}) }}">
+                            {{user.name}}
+                        </a>
+                    </td>
+                    <td>{{ user.prenom}}</td>
+                    <td>{{ user.email}}</td>
+                    <td>{{ user.date}}</td>
+           
+                     <td>
+                        <a href="{{ path('delete_user', {'id':user.id}) }}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>il n'y a aucun utilisateur<p>
+    {% endif %}
+    <h2>Ajouter un utilisateur<h2>
+    <div class="p-5">
+
+        {{ form_start(UserForm) }}
+
+        <p class="p-3">
+          {{ form_errors(UserForm) }}
+        </p>
+        <div class="d-flex flex-column">
+            {{ form_label(UserForm.name) }}
+            {{ form_widget(UserForm.name) }}
+        </div>
+        <div class="d-flex flex-column">
+            {{ form_label(UserForm.prenom) }}
+            {{ form_widget(UserForm.prenom) }}
+        </div>
+        <div class="d-flex flex-column">
+            {{ form_label(UserForm.email) }}
+            {{ form_widget(UserForm.email) }}
+        </div>
+        <div class="d-flex justify-content-center p-3">
+            {{ form_end(UserForm) }}
+        </div>
+
+    </div>
+
+{% endblock %}

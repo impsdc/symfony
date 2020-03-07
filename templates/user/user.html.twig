@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title%}Informations | {{user.name}} {% endblock %}
+
+{% block body %}
+    <h1> Informations sur l'utilisateur {{user.name}}</h1>
+    <div class="row d-flex align-items-center justify-content-center p-5">
+        <p class="p-2">{{user.name}}</p>
+        <p class="p-2">{{user.prenom}}</p>
+        <p class="p-2">{{user.email}}</p>
+        <p class="p-2">{{user.date}}</p>
+    </div>
+
+    <h2>Modifier les Informations</h2>
+    {{form(form)}}
+{% endblock %}
+

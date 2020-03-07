@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Taches{% endblock %}
+
+{% block body %}
+  <h1>Liste des Produits</h1>
+    {% if tache is not empty %}
+    <table class="table" border="1">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Deadline</th>
+                <th>utilisateur</th>
+                <th>Etat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tache in tache %}
+                <tr>
+                    <td> 
+                        <a href="{{ path('utilisateur', {'id': tache.id}) }}">
+                            {{tache.name}}
+                        </a>
+                    </td>
+                    <td>{{ tache.deadline}}</td>
+                    <td>{{ tache.user}}</td>
+                    <td>{{ tache.faite}}</td>
+           
+                     <td>
+                        <a href="{{ path('delete_tache', {'id':tache.id}) }}">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>il n'y a aucune taches<p>
+    {% endif %}
+    <h2>Ajouter un utilisateur<h2>
+    <div class="p-5">
+
+        {{ form_start(TacheForm) }}
+
+        <p class="p-3">
+          {{ form_errors(TacheForm) }}
+        </p>
+        <div class="d-flex flex-column">
+            {{ form_label(TacheForm.name) }}
+            {{ form_widget(TacheForm.name) }}
+        </div>
+        <div class="d-flex flex-column">
+            {{ form_label(TacheForm.deadline) }}
+            {{ form_widget(TacheForm.deadline) }}
+        </div>
+        <div class="d-flex flex-column">
+            {{ form_label(TacheForm.User) }}
+            {{ form_widget(TacheForm.User) }}
+        </div>
+         <div class="d-flex flex-column">
+            {{ form_label(TacheForm.faite) }}
+            {{ form_widget(TacheForm.faite) }}
+        </div>
+        <div class="d-flex justify-content-center p-3">
+            {{ form_end(TacheForm) }}
+        </div>
+
+    </div>
+
+{% endblock %}
