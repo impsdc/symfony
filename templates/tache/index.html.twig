@@ -3,7 +3,7 @@
 {% block title %}Taches{% endblock %}
 
 {% block body %}
-  <h1>Liste des Produits</h1>
+  <h1>Liste des Taches</h1>
     {% if tache is not empty %}
     <table class="table" border="1">
         <thead>
@@ -22,10 +22,13 @@
                             {{tache.name}}
                         </a>
                     </td>
-                    <td>{{ tache.deadline|date('Y-m-d')}}</td>
-                    <td>{{ tache.user}}</td>
-                    <td>{{ tache.faite}}</td>
-           
+                    <td>{{ tache.deadline|date('Y-m-d') }}</td>
+                    <td>{{ tache.user }}</td>
+                    {% if tache.faite == true %}
+                        <td>terminé</td>
+                    {% else %}
+                         <td>en cours</td>
+                     {% endif %}
                      <td>
                         <a href="{{ path('delete_tache', {'id':tache.id}) }}">
                             Delete

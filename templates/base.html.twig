@@ -7,6 +7,10 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <div class="w-full d-flex justify-content-end align-items-center">
+            <a class="p-3" href="/">User</a>
+            <a class="p-3" href="/tache">Taches</a>
+        </div>
          {% for type, messages in app.flashes %}
             {% for message in messages %}
                 <p class="alert alert-{{ type }}">{{ message }}<p>

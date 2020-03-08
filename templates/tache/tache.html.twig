@@ -5,10 +5,29 @@
 {% block body %}
     <h1> Informations sur la tache {{tache.name}}</h1>
     <div class="row d-flex align-items-center justify-content-center p-5">
-        <p class="p-2">{{tache.name}}</p>
-        <p class="p-2">{{tache.deadline|date('Y-m-d')}}</p>
-        <p class="p-2">{{tache.user}}</p>
-        <p class="p-2">{{tache.faite}}</p>
+     <table class="table" border="1">
+        <thead>
+            <tr>
+                <th>Nom de la tache </th>
+                <th>Deadline</th>
+                <th>Attribué à </th>
+                <th>Etat</th>
+            </tr>
+        </thead>
+         <tbody>
+            <tr>
+                <th class="p-2">{{tache.name}}</th>
+                <th class="p-2">{{tache.deadline|date('Y-m-d')}}</th>
+                <th class="p-2">{{tache.user}}</th>
+                 {% if tache.faite == true %}
+                <th>terminé</th>
+                {% else %}
+                    <th>en cours</th>
+                {% endif %}
+            </tr>
+           
+        </tbody>
+        </table>
     </div>
     <h2>Modifier les Informations</h2>
     {{form(form)}}

@@ -6,8 +6,27 @@
  {% if user.tache is not empty %}
     <h1> Liste des taches pour {{user.name}}</h1>
     <div class="d-flex align-items-center justify-content-center p-5">
-        <p class="p-2">{{user.tache}}</p>
+        <p class="p-2">{{user.tache.name}}</p>
+        <p class="p-2">{{user.tache.faite}}</p>
     </div>
+
+     <table class="table" border="1">
+        <thead>
+            <tr>
+                <th>Nom de la tache </th>
+                <th>Etat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tache in user.tache %}
+                <tr>     
+                    <th class="p-2">{{tache.name}}</td>
+                    <th class="p-2">{{tache.faite}}</th>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
 {% else %}
         <p>il n'y a aucune taches pour {{user.name}}<p>
 {% endif %}
