@@ -60,6 +60,13 @@ class TacheController extends AbstractController
                 $pdo->persist($tache);
                 $pdo->flush();
 
+                 // rénitialisation du formulaire
+            unset($entity);
+            unset($form);
+            $user = new Tache();
+            $form = $this->createForm(TacheFormType::class, $user);
+
+            $this->addFlash("success", "Utilisateur ajouté !");
                 $this->addFlash("success", "Les informations ont bien été modifiées !");
             }
     

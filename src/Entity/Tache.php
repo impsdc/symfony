@@ -42,15 +42,13 @@ class Tache
     private $faite;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="taches")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="tache")
      */
     private $User;
 
-
     public function __construct()
     {
-        $this->taches = new ArrayCollection();
+        $this->User = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -100,18 +98,6 @@ class Tache
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->User;
-    }
-
-    public function setUser(?User $User): self
-    {
-        $this->User = $User;
-
-        return $this;
-    }
-
     public function __toString(){
         return $this->getName();
     }
@@ -119,16 +105,15 @@ class Tache
     /**
      * @return Collection|User[]
      */
-    public function getUsers(): Collection
+    public function getUser(): Collection
     {
-        return $this->users;
+        return $this->User;
     }
 
     public function addUser(User $user): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setTache($this);
+        if (!$this->User->contains($user)) {
+            $this->User[] = $user;
         }
 
         return $this;
@@ -136,14 +121,10 @@ class Tache
 
     public function removeUser(User $user): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
-            // set the owning side to null (unless already changed)
-            if ($user->getTache() === $this) {
-                $user->setTache(null);
-            }
+        if ($this->User->contains($user)) {
+            $this->User->removeElement($user);
         }
 
         return $this;
-    }       
+    }      
 }

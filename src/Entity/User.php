@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -53,9 +55,15 @@ class User
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tache", inversedBy="users", cascade={"remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tache", mappedBy="User")
      */
     private $tache;
+
+    public function __construct()
+    {
+        $this->tache = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -120,14 +128,30 @@ class User
         return $this->getName();
     }
 
-    public function getTache(): ?Tache
+    /**
+     * @return Collection|Tache[]
+     */
+    public function getTache(): Collection
     {
         return $this->tache;
     }
 
-    public function setTache(?Tache $tache): self
+    public function addTache(Tache $tache): self
     {
-        $this->tache = $tache;
+        if (!$this->tache->contains($tache)) {
+            $this->tache[] = $tache;
+            $tache->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTache(Tache $tache): self
+    {
+        if ($this->tache->contains($tache)) {
+            $this->tache->removeElement($tache);
+            $tache->removeUser($this);
+        }
 
         return $this;
     }

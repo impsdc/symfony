@@ -16,7 +16,6 @@ class UserFormType extends AbstractType
             ->add('name')
             ->add('prenom')
             ->add('email')
-            ->add('tache')
             ->add('Ajouter', SubmitType::class)
         ;
     }

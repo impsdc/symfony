@@ -12,7 +12,6 @@
                 <th>Prénom</th>
                 <th>Email</th>
                 <th>Date D'inscription</th>
-                <th>Tache à faire</th>
             </tr>
         </thead>
         <tbody>
@@ -26,7 +25,6 @@
                     <td>{{ user.prenom}}</td>
                     <td>{{ user.email}}</td>
                     <td>{{ user.date}}</td>
-                    <td>{{ user.tache}}</td>
            
                      <td>
                         <a href="{{ path('delete_user', {'id':user.id}) }}">
@@ -57,10 +55,6 @@
         <div class="d-flex flex-column">
             {{ form_label(UserForm.email) }}
             {{ form_widget(UserForm.email) }}
-        </div>
-        <div class="d-flex flex-column">
-            {{ form_label(UserForm.tache) }}
-            {{ form_widget(UserForm.tache) }}
         </div>
         <div class="d-flex justify-content-center p-3">
             {{ form_end(UserForm) }}
