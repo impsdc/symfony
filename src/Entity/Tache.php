@@ -31,8 +31,7 @@ class Tache
     private $name;
 
     /**
-     * @Assert\NotNull
-     * @ORM\Column(name="deadline", type="date")
+     * @ORM\Column(name="deadline", type="datetime")
      */
     private $deadline;
 
@@ -48,10 +47,6 @@ class Tache
      */
     private $User;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="tache")
-     */
-    private $taches;
 
     public function __construct()
     {
@@ -75,14 +70,14 @@ class Tache
         return $this;
     }
 
-    public function getDeadline($format = 'Y-m-d')
+    public function getDeadline()
     {
-        return $this->deadline->format($format);
+        return $this->deadline;
     }
 
     public function setDeadline($deadline)
     {
-        $this->date = $deadline;
+        $this->deadline = $deadline;
  
         $day   = $deadline->format('d'); // Format the current date, take the current day (01 to 31)
         $month = $deadline->format('m'); // Same with the month
@@ -117,37 +112,38 @@ class Tache
         return $this;
     }
 
+    public function __toString(){
+        return $this->getName();
+    }
+
     /**
      * @return Collection|User[]
      */
-    public function getTaches(): Collection
+    public function getUsers(): Collection
     {
-        return $this->taches;
+        return $this->users;
     }
 
-    public function addTach(User $tach): self
+    public function addUser(User $user): self
     {
-        if (!$this->taches->contains($tach)) {
-            $this->taches[] = $tach;
-            $tach->setTache($this);
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setTache($this);
         }
 
         return $this;
     }
 
-    public function removeTach(User $tach): self
+    public function removeUser(User $user): self
     {
-        if ($this->taches->contains($tach)) {
-            $this->taches->removeElement($tach);
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
             // set the owning side to null (unless already changed)
-            if ($tach->getTache() === $this) {
-                $tach->setTache(null);
+            if ($user->getTache() === $this) {
+                $user->setTache(null);
             }
         }
-        return $this;
-    }
 
-    public function __toString(){
-        return $this->getName();
+        return $this;
     }       
 }

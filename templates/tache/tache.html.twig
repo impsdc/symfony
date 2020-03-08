@@ -3,12 +3,12 @@
 {% block title%}Informations | {{tache.name}} {% endblock %}
 
 {% block body %}
-    <h1> Informations sur l'utilisateur {{tache.name}}</h1>
+    <h1> Informations sur la tache {{tache.name}}</h1>
     <div class="row d-flex align-items-center justify-content-center p-5">
         <p class="p-2">{{tache.name}}</p>
-        <p class="p-2">{{tache.prenom}}</p>
-        <p class="p-2">{{tache.email}}</p>
-        <p class="p-2">{{tache.date}}</p>
+        <p class="p-2">{{tache.deadline|date('Y-m-d')}}</p>
+        <p class="p-2">{{tache.user}}</p>
+        <p class="p-2">{{tache.faite}}</p>
     </div>
 
     <h2>Modifier les Informations</h2>

@@ -12,6 +12,7 @@
                 <th>Prénom</th>
                 <th>Email</th>
                 <th>Date D'inscription</th>
+                <th>Tache à faire</th>
             </tr>
         </thead>
         <tbody>
@@ -25,6 +26,7 @@
                     <td>{{ user.prenom}}</td>
                     <td>{{ user.email}}</td>
                     <td>{{ user.date}}</td>
+                    <td>{{ user.tache}}</td>
            
                      <td>
                         <a href="{{ path('delete_user', {'id':user.id}) }}">
@@ -38,14 +40,12 @@
     {% else %}
         <p>il n'y a aucun utilisateur<p>
     {% endif %}
-    <h2>Ajouter un utilisateur<h2>
+    <h2 class="p-3">Ajouter un utilisateur<h2>
     <div class="p-5">
 
         {{ form_start(UserForm) }}
+          {{ form_errors(UserForm) }}      
 
-        <p class="p-3">
-          {{ form_errors(UserForm) }}
-        </p>
         <div class="d-flex flex-column">
             {{ form_label(UserForm.name) }}
             {{ form_widget(UserForm.name) }}
@@ -57,6 +57,10 @@
         <div class="d-flex flex-column">
             {{ form_label(UserForm.email) }}
             {{ form_widget(UserForm.email) }}
+        </div>
+        <div class="d-flex flex-column">
+            {{ form_label(UserForm.tache) }}
+            {{ form_widget(UserForm.tache) }}
         </div>
         <div class="d-flex justify-content-center p-3">
             {{ form_end(UserForm) }}

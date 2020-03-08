@@ -23,14 +23,20 @@ class UserController extends AbstractController
         //analyse la requete HTTP
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
+
+            $user->setDate(new \DateTime('now')); 
             //le form a été envoyé, on le sauvegarde
             $pdo->persist($user); //prepare
-            $pdo->flush() ;          //execute
+        $pdo->flush() ;          //execute
 
+            // rénitialisation du formulaire
             unset($entity);
             unset($form);
             $user = new User();
             $form = $this->createForm(UserFormType::class, $user);
+
+            $this->addFlash("success", "Utilisateur ajouté !");
+            
         }
 
         $allUsers = $pdo->getRepository(User::class)->findAll();

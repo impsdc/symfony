@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
-use phpDocumentor\Reflection\Types\Self_;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -54,22 +53,10 @@ class User
     private $date;
 
     /**
-
-     * @Assert\Positive
-     * @ORM\OneToMany(targetEntity="App\Entity\Tache", mappedBy="User")
-     */
-    private $taches;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tache", inversedBy="taches")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tache", inversedBy="users")
      */
     private $tache;
 
-    public function __construct()
-    {
-        $this->date = new \DateTime('now');
-
-    }
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +116,10 @@ class User
         return $date;
     }
 
+    public function __toString(){
+        return $this->getName();
+    }
+
     public function getTache(): ?Tache
     {
         return $this->tache;
@@ -139,9 +130,5 @@ class User
         $this->tache = $tache;
 
         return $this;
-    }
-
-    public function __toString(){
-        return $this->getName();
     }
 }

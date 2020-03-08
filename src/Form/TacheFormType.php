@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class TacheFormType extends AbstractType
 {
@@ -15,7 +16,10 @@ class TacheFormType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('deadline')
+            ->add('deadline', DateType::class, array(
+                'input' => 'datetime', 
+                'format' => 'dd/MM/yy'
+            ))
             ->add('faite', CheckboxType::class, array(
                 'label'    => "fait",
                 'required' => false,

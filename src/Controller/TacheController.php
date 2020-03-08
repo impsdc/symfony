@@ -33,7 +33,7 @@ class TacheController extends AbstractController
             $user = new Tache();
             $form = $this->createForm(TacheFormType::class, $tache);
 
-            $this->addFlash("success", "Utilisateur ajouté !");
+            $this->addFlash("success", "Tache ajouté !");
         }
 
         $allTaches = $pdo->getRepository(Tache::class)->findAll();
@@ -63,7 +63,7 @@ class TacheController extends AbstractController
                 $this->addFlash("success", "Les informations ont bien été modifiées !");
             }
     
-            return $this->render('user/user.html.twig', [
+            return $this->render('tache/tache.html.twig', [
                 'tache' => $tache, 
                 'form' => $form->createView()
             ]);

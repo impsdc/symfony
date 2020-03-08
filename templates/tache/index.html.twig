@@ -18,11 +18,11 @@
             {% for tache in tache %}
                 <tr>
                     <td> 
-                        <a href="{{ path('utilisateur', {'id': tache.id}) }}">
+                        <a href="{{ path('tacheModif', {'id': tache.id}) }}">
                             {{tache.name}}
                         </a>
                     </td>
-                    <td>{{ tache.deadline}}</td>
+                    <td>{{ tache.deadline|date('Y-m-d')}}</td>
                     <td>{{ tache.user}}</td>
                     <td>{{ tache.faite}}</td>
            
