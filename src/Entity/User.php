@@ -53,7 +53,7 @@ class User
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tache", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tache", inversedBy="users", cascade={"remove"})
      */
     private $tache;
 
