@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
+use App\Entity\Tache;
 use App\Form\UserFormType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -40,6 +41,7 @@ class UserController extends AbstractController
         }
 
         $allUsers = $pdo->getRepository(User::class)->findAll();
+
         return $this->render('user/index.html.twig', [
             'user' => $allUsers,
             'UserForm' => $form->createView()
@@ -49,11 +51,14 @@ class UserController extends AbstractController
      /**
      * @Route("user/{id}", name="utilisateur")
      */
-    public function userModif(Request $request, User $user=null){
+    public function userModif(Request $request, User $user=null, Tache $tache=null){
 
         if($user != null){
             $form = $this->createForm(UserFormType::class, $user);
             $form->handleRequest($request);
+
+            $pdo = $this->getDoctrine()->getManager();
+            
     
             if($form->isSubmitted() && $form->isValid()){
     
@@ -66,16 +71,18 @@ class UserController extends AbstractController
             }
     
             return $this->render('user/user.html.twig', [
-                'user' => $user, 
+                'user' => $user,
                 'form' => $form->createView()
             ]);
         }else{
             //produit n'existe pas 
             return $this->redirectToRoute('user');
 
-            $this->addFlash("error", "L'id de correspond a aucun des utilisateurs");
+            $this->addFlash("error", "L'id de correspond à aucun des utilisateurs");
         }
     }
+
+
 
     /**
      * @Route("/user/delete/{id}", name="delete_user")
